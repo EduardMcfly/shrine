@@ -76,7 +76,7 @@ class Shrine
 
             yield attacher if block_given?
 
-            abstract_persist(persist)
+            attacher.abstract_persist(persist)
           end
         end
 
@@ -95,7 +95,7 @@ class Shrine
         # Calls the reload strategy and yields a reloaded attacher from the
         # reloaded record.
         def abstract_reload(strategy)
-          return yield if strategy == false
+          return yield(self) if strategy == false
 
           strategy.call do |record|
             reloaded_attacher = dup
